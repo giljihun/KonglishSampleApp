@@ -14,6 +14,8 @@
 		4C6F7A352E23F1DD00369085 /* PlaneDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */; };
 		4C6F7A372E23F2A300369085 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A362E23F2A300369085 /* ARViewContainer.swift */; };
 		4C6F7A392E23F82B00369085 /* PlaneDetectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */; };
+		4C6F7A3B2E24174700369085 /* PlacementStabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A3A2E24174600369085 /* PlacementStabilityView.swift */; };
+		4C6F7A3D2E24175C00369085 /* StabilityARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A3C2E24175C00369085 /* StabilityARViewContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionView.swift; sourceTree = "<group>"; };
 		4C6F7A362E23F2A300369085 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 		4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionState.swift; sourceTree = "<group>"; };
+		4C6F7A3A2E24174600369085 /* PlacementStabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementStabilityView.swift; sourceTree = "<group>"; };
+		4C6F7A3C2E24175C00369085 /* StabilityARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StabilityARViewContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 		4C6F7A2A2E23DBBE00369085 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4C6F7A3C2E24175C00369085 /* StabilityARViewContainer.swift */,
 				4C6F7A362E23F2A300369085 /* ARViewContainer.swift */,
 			);
 			path = Components;
@@ -118,6 +123,7 @@
 		4C6F7A2B2E23DBBE00369085 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C6F7A3A2E24174600369085 /* PlacementStabilityView.swift */,
 				4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */,
 				4C6F7A2A2E23DBBE00369085 /* Components */,
 			);
@@ -213,7 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6F7A3B2E24174700369085 /* PlacementStabilityView.swift in Sources */,
 				4C6F7A352E23F1DD00369085 /* PlaneDetectionView.swift in Sources */,
+				4C6F7A3D2E24175C00369085 /* StabilityARViewContainer.swift in Sources */,
 				4C6F7A372E23F2A300369085 /* ARViewContainer.swift in Sources */,
 				4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */,
 				4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */,

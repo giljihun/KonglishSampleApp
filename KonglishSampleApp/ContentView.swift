@@ -25,7 +25,7 @@ struct ContentView: View {
                         title: "배치 안정성",
                         subtitle: "카메라 이동 시 오브젝트가 원위치에 유지되고 원근감이 정확한가",
                         icon: "camera.metering.center.weighted",
-                        destination: Text("ADAC4-74 구현 예정")
+                        destination: PlacementStabilityView()
                     )
                     
                     taskNavigationLink(
