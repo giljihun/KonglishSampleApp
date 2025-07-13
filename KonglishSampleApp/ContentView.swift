@@ -18,7 +18,7 @@ struct ContentView: View {
                         title: "평면 스캔 정확도",
                         subtitle: "실제 오브젝트 크기와 스캔 영역이 일치하는가",
                         icon: "ruler",
-                        destination: Text("ADAC4-73 구현 예정")
+                        destination: PlaneDetectionView()
                     )
                     
                     taskNavigationLink(
@@ -60,7 +60,7 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            Text("지라 태스크 개별 테스트")
+            Text("길's 지라 태스크 개별 테스트")
                 .font(.title2)
                 .foregroundStyle(.secondary)
         }

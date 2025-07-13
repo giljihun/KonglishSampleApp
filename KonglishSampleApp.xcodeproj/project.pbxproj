@@ -11,6 +11,9 @@
 		4C6F7A312E23DBBE00369085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */; };
 		4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2D2E23DBBE00369085 /* ContentView.swift */; };
 		4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */; };
+		4C6F7A352E23F1DD00369085 /* PlaneDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */; };
+		4C6F7A372E23F2A300369085 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A362E23F2A300369085 /* ARViewContainer.swift */; };
+		4C6F7A392E23F82B00369085 /* PlaneDetectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C6F7A2D2E23DBBE00369085 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonglishSampleAppApp.swift; sourceTree = "<group>"; };
+		4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionView.swift; sourceTree = "<group>"; };
+		4C6F7A362E23F2A300369085 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
+		4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,7 @@
 		4C6F7A222E23DBBE00369085 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -103,6 +110,7 @@
 		4C6F7A2A2E23DBBE00369085 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4C6F7A362E23F2A300369085 /* ARViewContainer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -110,6 +118,7 @@
 		4C6F7A2B2E23DBBE00369085 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */,
 				4C6F7A2A2E23DBBE00369085 /* Components */,
 			);
 			path = Views;
@@ -204,8 +213,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6F7A352E23F1DD00369085 /* PlaneDetectionView.swift in Sources */,
+				4C6F7A372E23F2A300369085 /* ARViewContainer.swift in Sources */,
 				4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */,
 				4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */,
+				4C6F7A392E23F82B00369085 /* PlaneDetectionState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +360,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -379,6 +392,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
