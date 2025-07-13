@@ -6,17 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4C6F7A302E23DBBE00369085 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F7A232E23DBBE00369085 /* Preview Assets.xcassets */; };
+		4C6F7A312E23DBBE00369085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */; };
+		4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2D2E23DBBE00369085 /* ContentView.swift */; };
+		4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4C6F79EC2E23C80B00369085 /* KonglishSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonglishSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C6F7A232E23DBBE00369085 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4C6F7A2D2E23DBBE00369085 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonglishSampleAppApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		4C6F79EE2E23C80B00369085 /* KonglishSampleApp */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = KonglishSampleApp;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4C6F79E92E23C80B00369085 /* Frameworks */ = {
@@ -32,7 +35,7 @@
 		4C6F79E32E23C80B00369085 = {
 			isa = PBXGroup;
 			children = (
-				4C6F79EE2E23C80B00369085 /* KonglishSampleApp */,
+				4C6F7A2F2E23DBBE00369085 /* KonglishSampleApp */,
 				4C6F79ED2E23C80B00369085 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +46,89 @@
 				4C6F79EC2E23C80B00369085 /* KonglishSampleApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4C6F7A222E23DBBE00369085 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4C6F7A242E23DBBE00369085 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4C6F7A232E23DBBE00369085 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4C6F7A252E23DBBE00369085 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4C6F7A262E23DBBE00369085 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4C6F7A272E23DBBE00369085 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4C6F7A282E23DBBE00369085 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4C6F7A262E23DBBE00369085 /* Extensions */,
+				4C6F7A272E23DBBE00369085 /* Helpers */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4C6F7A292E23DBBE00369085 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4C6F7A2A2E23DBBE00369085 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4C6F7A2B2E23DBBE00369085 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C6F7A2A2E23DBBE00369085 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4C6F7A2F2E23DBBE00369085 /* KonglishSampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				4C6F7A222E23DBBE00369085 /* Models */,
+				4C6F7A2B2E23DBBE00369085 /* Views */,
+				4C6F7A292E23DBBE00369085 /* ViewModels */,
+				4C6F7A252E23DBBE00369085 /* Services */,
+				4C6F7A282E23DBBE00369085 /* Utils */,
+				4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */,
+				4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */,
+				4C6F7A2D2E23DBBE00369085 /* ContentView.swift */,
+				4C6F7A242E23DBBE00369085 /* Preview Content */,
+			);
+			path = KonglishSampleApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +145,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				4C6F79EE2E23C80B00369085 /* KonglishSampleApp */,
 			);
 			name = KonglishSampleApp;
 			packageProductDependencies = (
@@ -109,6 +192,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6F7A302E23DBBE00369085 /* Preview Assets.xcassets in Resources */,
+				4C6F7A312E23DBBE00369085 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +204,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */,
+				4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,11 +342,11 @@
 				DEVELOPMENT_TEAM = 5M5VM39FM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "AR 영어 학습을 위해 카메라가 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "발음 학습을 위해 마이크가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "AR 영어 학습을 위해 카메라가 필요합니다.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "발음 학습을 위해 마이크가 필요합니다.";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -286,11 +373,11 @@
 				DEVELOPMENT_TEAM = 5M5VM39FM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "AR 영어 학습을 위해 카메라가 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "발음 학습을 위해 마이크가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "AR 영어 학습을 위해 카메라가 필요합니다.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "발음 학습을 위해 마이크가 필요합니다.";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
