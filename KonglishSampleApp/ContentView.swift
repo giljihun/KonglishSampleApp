@@ -9,16 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
+        VStack(spacing: 20) {
+            Image(systemName: "textbook")
                 .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+                .foregroundStyle(.blue)
+                .font(.system(size: 60))
+            
+            Text("AR 영어 학습 앱")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            Text("초등학생을 위한 몰입형 영어 학습")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            
+            Button {
+                print("앱 시작!")
+            } label: {
+                Text("시작하기")
+            }
+            .buttonStyle(.borderedProminent)
+            .font(.headline)
         }
         .padding()
     }
 }
 
-#Preview {
+#Preview(traits: .landscapeLeft) {
     ContentView()
 }
