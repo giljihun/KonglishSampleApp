@@ -15,8 +15,8 @@ struct ContentView: View {
                 
                 VStack(spacing: 20) {
                     taskNavigationLink(
-                        title: "평면 스캔 정확도",
-                        subtitle: "실제 오브젝트 크기와 스캔 영역이 일치하는가",
+                        title: "평면 스캔 정확도, 다층 평면 인식",
+                        subtitle: "벽/의자/서랍장 등 깊이별 평면에 각각 오브젝트 배치",
                         icon: "ruler",
                         destination: PlaneDetectionView()
                     )
@@ -33,13 +33,6 @@ struct ContentView: View {
                         subtitle: "Scatter 버튼으로 여러 카드를 겹치지 않게 무작위 배치",
                         icon: "rectangle.3.group.bubble",
                         destination: Text("ADAC4-75 구현 예정")
-                    )
-                    
-                    taskNavigationLink(
-                        title: "다층 평면 인식",
-                        subtitle: "벽/의자/서랍장 등 깊이별 평면에 각각 오브젝트 배치",
-                        icon: "square.stack.3d.down.forward",
-                        destination: Text("ADAC4-76 구현 예정")
                     )
                 }
                 .frame(maxWidth: 600)

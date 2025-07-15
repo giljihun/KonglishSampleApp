@@ -22,14 +22,28 @@ struct StabilityARViewContainer: UIViewRepresentable {
         config.planeDetection = [.horizontal, .vertical]
         config.environmentTexturing = .automatic
         
-        // 깊이 정보 활용
-        config.frameSemantics = .sceneDepth
+        // 기기 호환성을 고려한 설정
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+            // LiDAR 기기: 완전한 가려짐
+            config.sceneReconstruction = .meshWithClassification
+            config.frameSemantics = .sceneDepth
+            print("LiDAR 기기: 완전한 가려짐 지원")
+        } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+            // 비-LiDAR 기기: 사람 가려짐만
+            config.frameSemantics = .personSegmentationWithDepth
+            print("비-LiDAR 기기: 사람 가려짐만 지원")
+        } else {
+            print("구형 기기: 가려짐 기능 불가능")
+        }
         
         arView.session.run(config)
         
-        arView.debugOptions = [.showFeaturePoints]
+        // sceneUnderstanding 옵션 설정
+        arView.environment.sceneUnderstanding.options.insert(.occlusion)
         
-        // 터치 제스처 제거 (Scatter 버튼 방식으로 변경)
+        arView.debugOptions = [
+            //.showFeaturePoints,
+            .showSceneUnderstanding]
         
         // Coordinator에 ARView 전달
         context.coordinator.arView = arView
@@ -170,9 +184,13 @@ struct StabilityARViewContainer: UIViewRepresentable {
         // 평면 중앙에 카드 배치 (포스트잇처럼)
         private func placeCardOnPlaneCenter(planeAnchor: ARPlaneAnchor, planeId: UUID) {
             // 큰 카드 생성 (포스트잇 크기)
-            let cardMesh = MeshResource.generateBox(width: 0.15, height: 0.002, depth: 0.15) // 15cm x 15cm, 2mm 두께
+            let cardMesh = MeshResource.generateBox(width: 0.3, height: 0.004, depth: 0.2) // 15cm x 15cm, 2mm 두께
             let cardMaterial = SimpleMaterial(color: .white, isMetallic: false)
+            
             let cardEntity = ModelEntity(mesh: cardMesh, materials: [cardMaterial])
+            
+            // sceneUnderstanding을 위한 물리 컴포넌트 추가 (간단 버전)
+            cardEntity.generateCollisionShapes(recursive: true)
             
             // 카드에 평면과 같은 회전 적용 (포스트잇처럼 평면에 맞춤)
             let planeTransform = Transform(matrix: planeAnchor.transform)
