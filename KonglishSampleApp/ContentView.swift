@@ -34,6 +34,13 @@ struct ContentView: View {
                         icon: "rectangle.3.group.bubble",
                         destination: Text("ADAC4-75 구현 예정")
                     )
+                    
+                    taskNavigationLink(
+                        title: "통합 테스트",
+                        subtitle: "15개 수직 평면 감지 후 자동 카드 배치 시스템",
+                        icon: "square.grid.3x3.fill",
+                        destination: IntegrationTestView()
+                    )
                 }
                 .frame(maxWidth: 600)
             }
