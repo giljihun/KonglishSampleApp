@@ -8,9 +8,9 @@ struct IntegrationARContainer: UIViewRepresentable {
     @Binding var isScanning: Bool
     
     private struct CardConstants {
-        static let width: Float = 0.15
-        static let height: Float = 0.002
-        static let depth: Float = 0.15
+        static let width: Float = 0.25      // 15cm → 25cm (더 큰 카드)
+        static let height: Float = 0.003    // 2mm → 3mm (약간 두껍게)
+        static let depth: Float = 0.20      // 15cm → 20cm (더 큰 카드)
         static let offsetDistance: Float = 0.01
     }
     
@@ -40,7 +40,7 @@ struct IntegrationARContainer: UIViewRepresentable {
         arView.environment.sceneUnderstanding.options.insert(.occlusion)
         
         // 디버그 옵션
-        arView.debugOptions = [.showSceneUnderstanding]
+        arView.debugOptions = []
         
         // Coordinator 설정
         context.coordinator.arView = arView
@@ -120,6 +120,7 @@ struct IntegrationARContainer: UIViewRepresentable {
         
         @objc func handleStartPlaneDetection() {
             isDetectionActive = true
+            restartPlaneDetection()  // ARSession 재시작
             print("🎯 평면 감지 활성화")
         }
         
@@ -132,6 +133,53 @@ struct IntegrationARContainer: UIViewRepresentable {
             isDetectionActive = scanning
         }
         
+        /// 15개 달성 시 평면 감지 완전 중지
+        private func stopPlaneDetectionCompletely() {
+            print("🎉 15개 달성! 평면 감지 완전 중지")
+            
+            // 1. 감지 상태 비활성화
+            isDetectionActive = false
+            
+            // 2. UI 스캔 상태 업데이트
+            isScanning = false
+            
+            // 3. ARSession 평면 감지 완전 중지
+            if let arView = arView {
+                let config = ARWorldTrackingConfiguration()
+                config.planeDetection = []  // 평면 감지 완전 중지
+                config.environmentTexturing = .automatic
+                
+                // 기존 sceneReconstruction 설정 유지
+                if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+                    config.sceneReconstruction = .meshWithClassification
+                    config.frameSemantics = .sceneDepth
+                }
+                
+                arView.session.run(config)
+            }
+            
+            // 4. 목표 달성 알림
+            NotificationCenter.default.post(name: .targetReached, object: nil)
+        }
+        
+        /// 스캔 재시작 시 평면 감지 재활성화
+        private func restartPlaneDetection() {
+            print("🔄 평면 감지 재시작")
+            
+            if let arView = arView {
+                let config = ARWorldTrackingConfiguration()
+                config.planeDetection = [.vertical]  // 수직 평면 감지 재활성화
+                config.environmentTexturing = .automatic
+                
+                if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+                    config.sceneReconstruction = .meshWithClassification
+                    config.frameSemantics = .sceneDepth
+                }
+                
+                arView.session.run(config)
+            }
+        }
+        
         // MARK: - ARSessionDelegate
         
         func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
@@ -142,10 +190,26 @@ struct IntegrationARContainer: UIViewRepresentable {
                     // 수직 평면만 처리
                     guard planeAnchor.alignment == .vertical else { continue }
                     
-                    addPlaneVisualization(for: planeAnchor)
-                    
-                    // 감지된 평면 정보 업데이트
+                    // 15개 미만일 때만 추가 (핵심 로직)
                     DispatchQueue.main.async {
+                        guard self.detectedPlanes.count < 15 else { 
+                            print("✋ 15개 도달 - 추가 평면 차단")
+                            return 
+                        }
+                        
+                        // 1. 평면 크기 필터링 (너무 작은 평면 제외)
+                        guard self.isValidPlaneSize(planeAnchor) else {
+                            print("🚫 너무 작은 평면 제외: \(planeAnchor.planeExtent.width)x\(planeAnchor.planeExtent.height)")
+                            return
+                        }
+                        
+                        // 2. 중복 평면 체크 (같은 벽의 다른 부분 제외)
+                        guard !self.isDuplicatePlane(planeAnchor) else {
+                            print("🚫 중복 평면 제외")
+                            return
+                        }
+                        
+                        // 3. 유효한 평면만 추가
                         let detectedPlane = DetectedPlane(
                             anchor: planeAnchor,
                             position: simd_float3(planeAnchor.transform.columns.3.x, planeAnchor.transform.columns.3.y, planeAnchor.transform.columns.3.z),
@@ -153,7 +217,14 @@ struct IntegrationARContainer: UIViewRepresentable {
                         )
                         
                         self.detectedPlanes.append(detectedPlane)
-                        print("✅ 수직 평면 감지됨: \(self.detectedPlanes.count)/15")
+                        self.addPlaneVisualization(for: planeAnchor)
+                        
+                        print("✅ 유효한 평면 추가: \(self.detectedPlanes.count)/15")
+                        
+                        // 정확히 15개 달성 시 완전 중지
+                        if self.detectedPlanes.count == 15 {
+                            self.stopPlaneDetectionCompletely()
+                        }
                     }
                 }
             }
@@ -183,8 +254,56 @@ struct IntegrationARContainer: UIViewRepresentable {
             }
         }
         
-        // MARK: - 평면 시각화
+        // MARK: - 평면 품질 필터링
         
+        /// 평면 크기가 유효한지 체크 (너무 작은 평면 제외)
+        private func isValidPlaneSize(_ planeAnchor: ARPlaneAnchor) -> Bool {
+            let width = planeAnchor.planeExtent.width
+            let height = planeAnchor.planeExtent.height
+            let area = width * height
+            
+            // 최소 크기 기준
+            let minArea: Float = 0.05      // 최소 면적: 0.05m² (약 22cm x 22cm)
+            let minWidth: Float = 0.15     // 최소 폭: 15cm
+            let minHeight: Float = 0.15    // 최소 높이: 15cm
+            
+            let isValid = area >= minArea && width >= minWidth && height >= minHeight
+            
+            if !isValid {
+                print("📏 평면 크기 검사: \(width)x\(height) = \(area)m² (기준: \(minArea)m²)")
+            }
+            
+            return isValid
+        }
+        
+        /// 중복 평면인지 체크 (같은 벽의 다른 부분 제외)
+        private func isDuplicatePlane(_ newPlane: ARPlaneAnchor) -> Bool {
+            let newPosition = simd_float3(newPlane.transform.columns.3.x, newPlane.transform.columns.3.y, newPlane.transform.columns.3.z)
+            let newNormal = simd_float3(newPlane.transform.columns.1.x, newPlane.transform.columns.1.y, newPlane.transform.columns.1.z)
+            
+            for existingPlane in detectedPlanes {
+                let existingPosition = existingPlane.position
+                let existingNormal = existingPlane.normal
+                
+                // 1. 거리 체크 (50cm 이내)
+                let distance = simd_length(newPosition - existingPosition)
+                if distance < 0.5 {
+                    
+                    // 2. 법선 벡터 체크 (거의 평행한지 - 같은 벽인지)
+                    let dotProduct = simd_dot(newNormal, existingNormal)
+                    if abs(dotProduct) > 0.85 {  // 약 32도 이내면 같은 평면으로 판단
+                        print("🔍 중복 평면 감지:")
+                        print("   거리: \(distance)m")
+                        print("   각도 유사도: \(abs(dotProduct))")
+                        return true
+                    }
+                }
+            }
+            
+            return false
+        }
+        
+        // MARK: - 평면 시각화
         private func addPlaneVisualization(for planeAnchor: ARPlaneAnchor) {
             guard let arView = arView else { return }
             

@@ -7,6 +7,7 @@ struct IntegrationTestView: View {
     @State private var isScanning = false
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @State private var targetAchieved = false
     
     // 목표 평면 수
     private let targetPlaneCount = 15
@@ -38,6 +39,10 @@ struct IntegrationTestView: View {
             Button("확인", role: .cancel) { }
         } message: {
             Text(alertMessage)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .targetReached)) { _ in
+            targetAchieved = true
+            print("🎉 UI: 목표 달성 알림 수신")
         }
     }
     
@@ -91,8 +96,8 @@ struct IntegrationTestView: View {
     /// 하단 컨트롤
     func bottomControlsView() -> some View {
         VStack(spacing: 15) {
-            // 스캔 완료 상태일 때만 Scatter 버튼 표시
-            if detectedPlanes.count >= targetPlaneCount {
+            // 목표 달성 시 Scatter 버튼 표시
+            if targetAchieved || detectedPlanes.count >= targetPlaneCount {
                 completionView()
             }
             
@@ -149,8 +154,8 @@ struct IntegrationTestView: View {
                 scatterCards()
             } label: {
                 HStack {
-                    Image(systemName: "square.3.layers.3d.down.forward")
-                    Text("Scatter")
+                    Image(systemName: "sharedwithyou")
+                    Text("Scatter !")
                 }
                 .font(.title2)
                 .fontWeight(.semibold)
@@ -160,6 +165,7 @@ struct IntegrationTestView: View {
                 .background(.blue, in: RoundedRectangle(cornerRadius: 12))
             }
         }
+        .frame(maxWidth: 600)
         .padding()
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal)
@@ -184,6 +190,7 @@ struct IntegrationTestView: View {
     
     private func stopScanning() {
         NotificationCenter.default.post(name: .stopPlaneDetection, object: nil)
+        detectedPlanes = []
         print("🛑 평면 감지 중지")
     }
     
@@ -222,4 +229,5 @@ struct DetectedPlane: Identifiable {
 extension Notification.Name {
     static let startPlaneDetection = Notification.Name("startPlaneDetection")
     static let stopPlaneDetection = Notification.Name("stopPlaneDetection")
+    static let targetReached = Notification.Name("targetReached")
 }
