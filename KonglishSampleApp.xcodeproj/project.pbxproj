@@ -78,43 +78,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		4C6F7A252E23DBBE00369085 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		4C6F7A262E23DBBE00369085 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		4C6F7A272E23DBBE00369085 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		4C6F7A282E23DBBE00369085 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				4C6F7A262E23DBBE00369085 /* Extensions */,
-				4C6F7A272E23DBBE00369085 /* Helpers */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		4C6F7A292E23DBBE00369085 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		4C6F7A2A2E23DBBE00369085 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,9 +104,6 @@
 			children = (
 				4C6F7A222E23DBBE00369085 /* Models */,
 				4C6F7A2B2E23DBBE00369085 /* Views */,
-				4C6F7A292E23DBBE00369085 /* ViewModels */,
-				4C6F7A252E23DBBE00369085 /* Services */,
-				4C6F7A282E23DBBE00369085 /* Utils */,
 				4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */,
 				4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */,
 				4C6F7A2D2E23DBBE00369085 /* ContentView.swift */,

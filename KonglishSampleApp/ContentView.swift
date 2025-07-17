@@ -15,28 +15,7 @@ struct ContentView: View {
                 
                 VStack(spacing: 20) {
                     taskNavigationLink(
-                        title: "평면 스캔 정확도, 다층 평면 인식",
-                        subtitle: "벽/의자/서랍장 등 깊이별 평면에 각각 오브젝트 배치",
-                        icon: "ruler",
-                        destination: PlaneDetectionView()
-                    )
-                    
-                    taskNavigationLink(
-                        title: "배치 안정성",
-                        subtitle: "카메라 이동 시 오브젝트가 원위치에 유지되고 원근감이 정확한가",
-                        icon: "camera.metering.center.weighted",
-                        destination: PlacementStabilityView()
-                    )
-                    
-                    taskNavigationLink(
-                        title: "충돌 방지 배치",
-                        subtitle: "Scatter 버튼으로 여러 카드를 겹치지 않게 무작위 배치",
-                        icon: "rectangle.3.group.bubble",
-                        destination: Text("ADAC4-75 구현 예정")
-                    )
-                    
-                    taskNavigationLink(
-                        title: "통합 테스트",
+                        title: "AR 영어 학습 카드 배치 시스템",
                         subtitle: "15개 수직 평면 감지 후 자동 카드 배치 시스템",
                         icon: "square.grid.3x3.fill",
                         destination: IntegrationTestView()
@@ -56,11 +35,11 @@ struct ContentView: View {
                 .foregroundStyle(.blue)
                 .font(.system(size: 80))
             
-            Text("ARKit 샘플링 앱")
+            Text("Konglish AR 학습 앱")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            Text("길's 지라 태스크 개별 테스트")
+            Text("초등학생을 위한 AR 영어 발음 학습")
                 .font(.title2)
                 .foregroundStyle(.secondary)
         }
