@@ -8,7 +8,7 @@ struct IntegrationARContainer: UIViewRepresentable {
     @Binding var isScanning: Bool
     
     private struct CardConstants {
-        static let width: Float = 0.25      // 15cm → 25cm (더 큰 카드)
+        static let width: Float = 0.35      // 15cm → 25cm (더 큰 카드)
         static let height: Float = 0.003    // 2mm → 3mm (약간 두껍게)
         static let depth: Float = 0.20      // 15cm → 20cm (더 큰 카드)
         static let offsetDistance: Float = 0.01
