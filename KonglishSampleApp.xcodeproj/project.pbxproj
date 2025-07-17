@@ -11,11 +11,6 @@
 		4C6F7A312E23DBBE00369085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */; };
 		4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2D2E23DBBE00369085 /* ContentView.swift */; };
 		4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */; };
-		4C6F7A352E23F1DD00369085 /* PlaneDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */; };
-		4C6F7A372E23F2A300369085 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A362E23F2A300369085 /* ARViewContainer.swift */; };
-		4C6F7A392E23F82B00369085 /* PlaneDetectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */; };
-		4C6F7A3B2E24174700369085 /* PlacementStabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A3A2E24174600369085 /* PlacementStabilityView.swift */; };
-		4C6F7A3D2E24175C00369085 /* StabilityARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A3C2E24175C00369085 /* StabilityARViewContainer.swift */; };
 		4C6F7A4B2E27D06F00369085 /* IntegrationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */; };
 		4C6F7A4D2E27D07900369085 /* IntegrationARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A4C2E27D07900369085 /* IntegrationARContainer.swift */; };
 /* End PBXBuildFile section */
@@ -26,11 +21,6 @@
 		4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C6F7A2D2E23DBBE00369085 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonglishSampleAppApp.swift; sourceTree = "<group>"; };
-		4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionView.swift; sourceTree = "<group>"; };
-		4C6F7A362E23F2A300369085 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
-		4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionState.swift; sourceTree = "<group>"; };
-		4C6F7A3A2E24174600369085 /* PlacementStabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementStabilityView.swift; sourceTree = "<group>"; };
-		4C6F7A3C2E24175C00369085 /* StabilityARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StabilityARViewContainer.swift; sourceTree = "<group>"; };
 		4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestView.swift; sourceTree = "<group>"; };
 		4C6F7A4C2E27D07900369085 /* IntegrationARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationARContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,14 +52,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4C6F7A222E23DBBE00369085 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4C6F7A382E23F82B00369085 /* PlaneDetectionState.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		4C6F7A242E23DBBE00369085 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,8 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				4C6F7A4C2E27D07900369085 /* IntegrationARContainer.swift */,
-				4C6F7A3C2E24175C00369085 /* StabilityARViewContainer.swift */,
-				4C6F7A362E23F2A300369085 /* ARViewContainer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -92,8 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */,
-				4C6F7A3A2E24174600369085 /* PlacementStabilityView.swift */,
-				4C6F7A342E23F1DD00369085 /* PlaneDetectionView.swift */,
 				4C6F7A2A2E23DBBE00369085 /* Components */,
 			);
 			path = Views;
@@ -102,7 +80,6 @@
 		4C6F7A2F2E23DBBE00369085 /* KonglishSampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				4C6F7A222E23DBBE00369085 /* Models */,
 				4C6F7A2B2E23DBBE00369085 /* Views */,
 				4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */,
 				4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */,
@@ -186,14 +163,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6F7A4D2E27D07900369085 /* IntegrationARContainer.swift in Sources */,
-				4C6F7A3B2E24174700369085 /* PlacementStabilityView.swift in Sources */,
-				4C6F7A352E23F1DD00369085 /* PlaneDetectionView.swift in Sources */,
-				4C6F7A3D2E24175C00369085 /* StabilityARViewContainer.swift in Sources */,
 				4C6F7A4B2E27D06F00369085 /* IntegrationTestView.swift in Sources */,
-				4C6F7A372E23F2A300369085 /* ARViewContainer.swift in Sources */,
 				4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */,
 				4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */,
-				4C6F7A392E23F82B00369085 /* PlaneDetectionState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

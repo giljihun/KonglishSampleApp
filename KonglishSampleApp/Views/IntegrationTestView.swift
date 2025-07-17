@@ -219,6 +219,13 @@ struct DetectedPlane: Identifiable {
     let normal: simd_float3
 }
 
+/// 배치된 카드 정보
+struct PlacedCard: Identifiable {
+    let id = UUID()
+    let position: simd_float3
+    let planeId: UUID
+}
+
 #Preview(traits: .landscapeLeft) {
     NavigationStack {
         IntegrationTestView()
