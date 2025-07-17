@@ -463,3 +463,9 @@ struct IntegrationARContainer: UIViewRepresentable {
         }
     }
 }
+
+// Notification extensions
+extension Notification.Name {
+    static let scatterCards = Notification.Name("scatterCards")
+    static let clearAllCards = Notification.Name("clearAllCards")
+}
