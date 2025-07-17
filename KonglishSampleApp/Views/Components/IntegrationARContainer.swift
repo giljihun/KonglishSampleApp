@@ -104,12 +104,6 @@ struct IntegrationARContainer: UIViewRepresentable {
                 object: nil
             )
             
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(handleClearAllCards),
-                name: .clearAllCards,
-                object: nil
-            )
         }
         
         deinit {
@@ -365,15 +359,11 @@ struct IntegrationARContainer: UIViewRepresentable {
         }
         
         // MARK: - 카드 배치
-        
         @objc func handleScatterCards() {
             guard !detectedPlanes.isEmpty else {
-                print("❌ 배치할 평면이 없습니다")
+                print("배치할 평면이 없음.")
                 return
             }
-            
-            // 기존 카드 제거
-            removeAllCards()
             
             print("🎯 \(detectedPlanes.count)개 평면에 카드 배치 시작")
             
@@ -384,8 +374,8 @@ struct IntegrationARContainer: UIViewRepresentable {
         }
         
         private func placeCardOnPlane(detectedPlane: DetectedPlane) {
-            guard let arView = arView,
-                  let anchorEntity = planeEntities[detectedPlane.anchor.identifier] else { return }
+            
+            guard let anchorEntity = planeEntities[detectedPlane.anchor.identifier] else { return }
             
             let cardEntity = createCard()
             let cardId = UUID()
@@ -441,31 +431,10 @@ struct IntegrationARContainer: UIViewRepresentable {
             return simd_quatf(simd_float3x3(rightVector, correctedUp, normal))
         }
         
-        // MARK: - 카드 제거
-        
-        @objc func handleClearAllCards() {
-            removeAllCards()
-        }
-        
-        private func removeAllCards() {
-            // 모든 카드 엔티티 제거
-            for (_, cardEntity) in cardEntities {
-                cardEntity.removeFromParent()
-            }
-            
-            cardEntities.removeAll()
-            
-            DispatchQueue.main.async {
-                self.placedCards.removeAll()
-            }
-            
-            print("🗑️ 모든 카드 제거 완료")
-        }
     }
 }
 
 // Notification extensions
 extension Notification.Name {
     static let scatterCards = Notification.Name("scatterCards")
-    static let clearAllCards = Notification.Name("clearAllCards")
 }

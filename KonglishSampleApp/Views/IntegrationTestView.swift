@@ -116,22 +116,6 @@ struct IntegrationTestView: View {
                     .padding(.vertical, 10)
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20))
                 }
-                
-                if !placedCards.isEmpty {
-                    Button {
-                        clearAllCards()
-                    } label: {
-                        HStack {
-                            Image(systemName: "trash.circle.fill")
-                            Text("모두 제거")
-                        }
-                        .font(.body)
-                        .foregroundStyle(.red)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20))
-                    }
-                }
             }
         }
         .padding(.horizontal)
@@ -205,10 +189,6 @@ struct IntegrationTestView: View {
         print("🎯 카드 배치 시작")
     }
     
-    private func clearAllCards() {
-        NotificationCenter.default.post(name: .clearAllCards, object: nil)
-        print("🗑️ 모든 카드 제거")
-    }
 }
 
 /// 감지된 평면 정보
