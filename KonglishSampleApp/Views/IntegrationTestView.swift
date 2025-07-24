@@ -1,6 +1,21 @@
 import SwiftUI
 import ARKit
 
+/// 감지된 평면 정보
+struct DetectedPlane: Identifiable {
+    let id = UUID()
+    let anchor: ARPlaneAnchor
+    let position: simd_float3
+    let normal: simd_float3
+}
+
+/// 배치된 카드 정보
+struct PlacedCard: Identifiable {
+    let id = UUID()
+    let position: simd_float3
+    let planeId: UUID
+}
+
 struct IntegrationTestView: View {
     @State private var detectedPlanes: [DetectedPlane] = []
     @State private var placedCards: [PlacedCard] = []
@@ -9,8 +24,8 @@ struct IntegrationTestView: View {
     @State private var alertMessage = ""
     @State private var targetAchieved = false
     
-    // 목표 평면 수
-    private let targetPlaneCount = 15
+    // 목표 평면 수 (테스트용)
+    private let targetPlaneCount = 1
     
     var body: some View {
         ZStack {
@@ -191,19 +206,11 @@ struct IntegrationTestView: View {
     
 }
 
-/// 감지된 평면 정보
-struct DetectedPlane: Identifiable {
-    let id = UUID()
-    let anchor: ARPlaneAnchor
-    let position: simd_float3
-    let normal: simd_float3
-}
-
-/// 배치된 카드 정보
-struct PlacedCard: Identifiable {
-    let id = UUID()
-    let position: simd_float3
-    let planeId: UUID
+// Notification extensions
+extension Notification.Name {
+    static let startPlaneDetection = Notification.Name("startPlaneDetection")
+    static let stopPlaneDetection = Notification.Name("stopPlaneDetection")
+    static let targetReached = Notification.Name("targetReached")
 }
 
 #Preview(traits: .landscapeLeft) {
@@ -212,9 +219,3 @@ struct PlacedCard: Identifiable {
     }
 }
 
-// Notification extensions
-extension Notification.Name {
-    static let startPlaneDetection = Notification.Name("startPlaneDetection")
-    static let stopPlaneDetection = Notification.Name("stopPlaneDetection")
-    static let targetReached = Notification.Name("targetReached")
-}

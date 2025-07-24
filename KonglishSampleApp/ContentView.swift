@@ -20,6 +20,21 @@ struct ContentView: View {
                         icon: "square.grid.3x3.fill",
                         destination: IntegrationTestView()
                     )
+                    
+                    taskNavigationLink(
+                        title: "새로운 테스트",
+                        subtitle: "새로운 기능 테스트를 위한 전용 뷰",
+                        icon: "sparkles",
+                        destination: NewTestView()
+                    )
+                    
+                    taskNavigationLink(
+                        title: "결합 테스트",
+                        subtitle: "카드 배치 + 슈팅 기능을 결합한 테스트",
+                        icon: "gamecontroller.fill",
+                        destination: CombinedTestView()
+                    )
+                    
                 }
                 .frame(maxWidth: 600)
             }

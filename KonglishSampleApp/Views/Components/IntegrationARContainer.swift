@@ -44,9 +44,14 @@ struct IntegrationARContainer: UIViewRepresentable {
         
         // Coordinator 설정
         context.coordinator.arView = arView
+        context.coordinator.setupCardFeatures(arView: arView)
         
         // 평면 감지 이벤트 처리를 위한 delegate 설정
         arView.session.delegate = context.coordinator
+        
+        // 탭 제스처 추가
+        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
+        arView.addGestureRecognizer(tapGesture)
         
         return arView
     }
@@ -70,8 +75,12 @@ struct IntegrationARContainer: UIViewRepresentable {
         // 평면별 Entity 추적
         private var planeEntities: [UUID: AnchorEntity] = [:]
         private var planeAnchors: [UUID: ARPlaneAnchor] = [:]
-        private var cardEntities: [UUID: ModelEntity] = [:]
+        private var cardEntities: [UUID: CardEntity] = [:]
         private var cardAnchors: [UUID: AnchorEntity] = [:]
+        
+        // 카드 기능들
+        private var cardDetector: CardDetector?
+        private var cardRotator: CardRotator?
         
         // 감지 상태
         private var isDetectionActive = false
@@ -127,9 +136,9 @@ struct IntegrationARContainer: UIViewRepresentable {
             isDetectionActive = scanning
         }
         
-        /// 15개 달성 시 평면 감지 완전 중지
+        /// 1개 달성 시 평면 감지 완전 중지
         private func stopPlaneDetectionCompletely() {
-            print("🎉 15개 달성! 평면 감지 완전 중지")
+            print("🎉 1개 달성! 평면 감지 완전 중지")
             
             // 1. 감지 상태 비활성화
             isDetectionActive = false
@@ -184,10 +193,10 @@ struct IntegrationARContainer: UIViewRepresentable {
                     // 수직 평면만 처리
                     guard planeAnchor.alignment == .vertical else { continue }
                     
-                    // 15개 미만일 때만 추가 (핵심 로직)
+                    // 1개 미만일 때만 추가 (테스트용)
                     DispatchQueue.main.async {
-                        guard self.detectedPlanes.count < 15 else { 
-                            print("✋ 15개 도달 - 추가 평면 차단")
+                        guard self.detectedPlanes.count < 1 else { 
+                            print("✋ 1개 도달 - 추가 평면 차단")
                             return 
                         }
                         
@@ -213,10 +222,10 @@ struct IntegrationARContainer: UIViewRepresentable {
                         self.detectedPlanes.append(detectedPlane)
                         self.addPlaneVisualization(for: planeAnchor)
                         
-                        print("✅ 유효한 평면 추가: \(self.detectedPlanes.count)/15")
+                        print("✅ 유효한 평면 추가: \(self.detectedPlanes.count)/1")
                         
-                        // 정확히 15개 달성 시 완전 중지
-                        if self.detectedPlanes.count == 15 {
+                        // 정확히 1개 달성 시 완전 중지
+                        if self.detectedPlanes.count == 1 {
                             self.stopPlaneDetectionCompletely()
                         }
                     }
@@ -242,7 +251,7 @@ struct IntegrationARContainer: UIViewRepresentable {
                     // 감지된 평면 목록에서 제거
                     DispatchQueue.main.async {
                         self.detectedPlanes.removeAll { $0.anchor.identifier == planeAnchor.identifier }
-                        print("❌ 평면 제거됨: \(self.detectedPlanes.count)/15")
+                        print("❌ 평면 제거됨: \(self.detectedPlanes.count)/1")
                     }
                 }
             }
@@ -256,10 +265,10 @@ struct IntegrationARContainer: UIViewRepresentable {
             let height = planeAnchor.planeExtent.height
             let area = width * height
             
-            // 최소 크기 기준
-            let minArea: Float = 0.05      // 최소 면적: 0.05m² (약 22cm x 22cm)
-            let minWidth: Float = 0.15     // 최소 폭: 15cm
-            let minHeight: Float = 0.15    // 최소 높이: 15cm
+            // 최소 크기 기준 (테스트용으로 완화)
+            let minArea: Float = 0.01      // 최소 면적: 0.01m² (약 10cm x 10cm)  
+            let minWidth: Float = 0.05     // 최소 폭: 5cm
+            let minHeight: Float = 0.05    // 최소 높이: 5cm
             
             let isValid = area >= minArea && width >= minWidth && height >= minHeight
             
@@ -395,6 +404,7 @@ struct IntegrationARContainer: UIViewRepresentable {
             
             // 저장
             cardEntities[cardId] = cardEntity
+            print("📌 카드 저장됨: \(cardId) - 총 \(cardEntities.count)개")
             
             // 배치 정보 업데이트
             DispatchQueue.main.async {
@@ -405,22 +415,18 @@ struct IntegrationARContainer: UIViewRepresentable {
             print("📌 카드 배치 완료: \(detectedPlane.position)")
         }
         
-        private func createCard() -> ModelEntity {
-            let cardMesh = MeshResource.generateBox(
-                width: CardConstants.width,
-                height: CardConstants.height,
-                depth: CardConstants.depth
+        private func createCard() -> CardEntity {
+            let gameCard = GameCard(
+                wordKor: "테스트", wordEng: "Test"
             )
             
-            let cardEntity = ModelEntity(mesh: cardMesh, materials: [SimpleMaterial(color: .white, isMetallic: false)])
-            cardEntity.generateCollisionShapes(recursive: true)
-            
+            let cardEntity = CardEntity(cardData: gameCard)
             return cardEntity
         }
         
-        private func addCardDesign(to cardEntity: ModelEntity) {
-            let material = SimpleMaterial(color: .systemGreen, isMetallic: false)
-            cardEntity.model?.materials = [material]
+        private func addCardDesign(to cardEntity: CardEntity) {
+            // CardEntity에서 자체적으로 머티리얼 관리
+            cardEntity.updateMaterial()
         }
         
         private func calculateCardRotation(normal: simd_float3) -> simd_quatf {
@@ -429,6 +435,33 @@ struct IntegrationARContainer: UIViewRepresentable {
             let correctedUp = simd_cross(normal, rightVector)
             
             return simd_quatf(simd_float3x3(rightVector, correctedUp, normal))
+        }
+        
+        // MARK: - 카드 기능 설정
+        func setupCardFeatures(arView: ARView) {
+            cardDetector = CardDetector(arView: arView)
+            cardRotator = CardRotator(arView: arView)
+        }
+        
+        // MARK: - 탭 처리
+        @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+            guard let arView = arView,
+                  let cardDetector = cardDetector,
+                  let cardRotator = cardRotator else { return }
+            
+            let location = gesture.location(in: arView)
+            
+            // 탭한 위치에서 카드 찾기
+            if let cardEntity = cardDetector.findCardAtLocation(location) {
+                print("🃏 카드 탭됨: \(cardEntity.cardData?.wordEng ?? "Unknown")")
+                
+                // 카드 회전 실행
+                cardRotator.rotateCard(cardEntity)
+                
+                // 테스트용: 완료 상태 변경 제거 (계속 회전 가능하게)
+            } else {
+                print("❌ 카드를 찾을 수 없습니다.")
+            }
         }
         
     }

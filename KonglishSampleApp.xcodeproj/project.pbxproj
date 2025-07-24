@@ -12,7 +12,20 @@
 		4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2D2E23DBBE00369085 /* ContentView.swift */; };
 		4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */; };
 		4C6F7A4B2E27D06F00369085 /* IntegrationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */; };
-		4C6F7A4D2E27D07900369085 /* IntegrationARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F7A4C2E27D07900369085 /* IntegrationARContainer.swift */; };
+		4CEE14082E31E65B00E8EAF2 /* CardRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14042E31E65B00E8EAF2 /* CardRotator.swift */; };
+		4CEE14092E31E65B00E8EAF2 /* CardDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14032E31E65B00E8EAF2 /* CardDetector.swift */; };
+		4CEE140A2E31E65B00E8EAF2 /* CardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14062E31E65B00E8EAF2 /* CardEntity.swift */; };
+		4CEE14182E325A4A00E8EAF2 /* IntegrationARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14172E325A4A00E8EAF2 /* IntegrationARContainer.swift */; };
+		4CEE141A2E325C9500E8EAF2 /* NewTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14192E325C9500E8EAF2 /* NewTestView.swift */; };
+		4CEE141C2E325DB000E8EAF2 /* Thonker.glb in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE141B2E325DB000E8EAF2 /* Thonker.glb */; };
+		4CEE141E2E32643800E8EAF2 /* ShootingARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE141D2E32643800E8EAF2 /* ShootingARContainer.swift */; };
+		4CEE14202E3272A200E8EAF2 /* CombinedTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE141F2E3272A200E8EAF2 /* CombinedTestView.swift */; };
+		4CEE14222E32759500E8EAF2 /* Barrel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14212E32759500E8EAF2 /* Barrel.usdz */; };
+		4CEE14242E327A6D00E8EAF2 /* kong.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14232E327A6D00E8EAF2 /* kong.usdz */; };
+		4CEE14262E328BC700E8EAF2 /* CombinedARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14252E328BC700E8EAF2 /* CombinedARContainer.swift */; };
+		4CEE14282E328E4200E8EAF2 /* plane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14272E328E4200E8EAF2 /* plane.usdz */; };
+		4CEE142A2E328EE900E8EAF2 /* soccerball.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14292E328EE900E8EAF2 /* soccerball.usdz */; };
+		4CEE142C2E329CE500E8EAF2 /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE142B2E329CE500E8EAF2 /* GameCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,7 +35,20 @@
 		4C6F7A2D2E23DBBE00369085 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonglishSampleAppApp.swift; sourceTree = "<group>"; };
 		4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestView.swift; sourceTree = "<group>"; };
-		4C6F7A4C2E27D07900369085 /* IntegrationARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationARContainer.swift; sourceTree = "<group>"; };
+		4CEE14032E31E65B00E8EAF2 /* CardDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetector.swift; sourceTree = "<group>"; };
+		4CEE14042E31E65B00E8EAF2 /* CardRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRotator.swift; sourceTree = "<group>"; };
+		4CEE14062E31E65B00E8EAF2 /* CardEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEntity.swift; sourceTree = "<group>"; };
+		4CEE14172E325A4A00E8EAF2 /* IntegrationARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationARContainer.swift; sourceTree = "<group>"; };
+		4CEE14192E325C9500E8EAF2 /* NewTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTestView.swift; sourceTree = "<group>"; };
+		4CEE141B2E325DB000E8EAF2 /* Thonker.glb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thonker.glb; sourceTree = "<group>"; };
+		4CEE141D2E32643800E8EAF2 /* ShootingARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootingARContainer.swift; sourceTree = "<group>"; };
+		4CEE141F2E3272A200E8EAF2 /* CombinedTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedTestView.swift; sourceTree = "<group>"; };
+		4CEE14212E32759500E8EAF2 /* Barrel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Barrel.usdz; sourceTree = "<group>"; };
+		4CEE14232E327A6D00E8EAF2 /* kong.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = kong.usdz; sourceTree = "<group>"; };
+		4CEE14252E328BC700E8EAF2 /* CombinedARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedARContainer.swift; sourceTree = "<group>"; };
+		4CEE14272E328E4200E8EAF2 /* plane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = plane.usdz; sourceTree = "<group>"; };
+		4CEE14292E328EE900E8EAF2 /* soccerball.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = soccerball.usdz; sourceTree = "<group>"; };
+		4CEE142B2E329CE500E8EAF2 /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +89,9 @@
 		4C6F7A2A2E23DBBE00369085 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4C6F7A4C2E27D07900369085 /* IntegrationARContainer.swift */,
+				4CEE14252E328BC700E8EAF2 /* CombinedARContainer.swift */,
+				4CEE14172E325A4A00E8EAF2 /* IntegrationARContainer.swift */,
+				4CEE141D2E32643800E8EAF2 /* ShootingARContainer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -71,6 +99,8 @@
 		4C6F7A2B2E23DBBE00369085 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4CEE141F2E3272A200E8EAF2 /* CombinedTestView.swift */,
+				4CEE14192E325C9500E8EAF2 /* NewTestView.swift */,
 				4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */,
 				4C6F7A2A2E23DBBE00369085 /* Components */,
 			);
@@ -80,6 +110,13 @@
 		4C6F7A2F2E23DBBE00369085 /* KonglishSampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				4CEE14212E32759500E8EAF2 /* Barrel.usdz */,
+				4CEE14232E327A6D00E8EAF2 /* kong.usdz */,
+				4CEE14272E328E4200E8EAF2 /* plane.usdz */,
+				4CEE14292E328EE900E8EAF2 /* soccerball.usdz */,
+				4CEE141B2E325DB000E8EAF2 /* Thonker.glb */,
+				4CEE14052E31E65B00E8EAF2 /* Features */,
+				4CEE14072E31E65B00E8EAF2 /* Models */,
 				4C6F7A2B2E23DBBE00369085 /* Views */,
 				4C6F7A2C2E23DBBE00369085 /* Assets.xcassets */,
 				4C6F7A2E2E23DBBE00369085 /* KonglishSampleAppApp.swift */,
@@ -87,6 +124,24 @@
 				4C6F7A242E23DBBE00369085 /* Preview Content */,
 			);
 			path = KonglishSampleApp;
+			sourceTree = "<group>";
+		};
+		4CEE14052E31E65B00E8EAF2 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				4CEE14032E31E65B00E8EAF2 /* CardDetector.swift */,
+				4CEE14042E31E65B00E8EAF2 /* CardRotator.swift */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		4CEE14072E31E65B00E8EAF2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4CEE142B2E329CE500E8EAF2 /* GameCard.swift */,
+				4CEE14062E31E65B00E8EAF2 /* CardEntity.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,8 +205,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CEE14242E327A6D00E8EAF2 /* kong.usdz in Resources */,
+				4CEE141C2E325DB000E8EAF2 /* Thonker.glb in Resources */,
 				4C6F7A302E23DBBE00369085 /* Preview Assets.xcassets in Resources */,
 				4C6F7A312E23DBBE00369085 /* Assets.xcassets in Resources */,
+				4CEE14282E328E4200E8EAF2 /* plane.usdz in Resources */,
+				4CEE14222E32759500E8EAF2 /* Barrel.usdz in Resources */,
+				4CEE142A2E328EE900E8EAF2 /* soccerball.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,9 +222,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C6F7A4D2E27D07900369085 /* IntegrationARContainer.swift in Sources */,
+				4CEE14082E31E65B00E8EAF2 /* CardRotator.swift in Sources */,
+				4CEE142C2E329CE500E8EAF2 /* GameCard.swift in Sources */,
+				4CEE141A2E325C9500E8EAF2 /* NewTestView.swift in Sources */,
+				4CEE14182E325A4A00E8EAF2 /* IntegrationARContainer.swift in Sources */,
+				4CEE14262E328BC700E8EAF2 /* CombinedARContainer.swift in Sources */,
+				4CEE14092E31E65B00E8EAF2 /* CardDetector.swift in Sources */,
+				4CEE140A2E31E65B00E8EAF2 /* CardEntity.swift in Sources */,
+				4CEE14202E3272A200E8EAF2 /* CombinedTestView.swift in Sources */,
 				4C6F7A4B2E27D06F00369085 /* IntegrationTestView.swift in Sources */,
 				4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */,
+				4CEE141E2E32643800E8EAF2 /* ShootingARContainer.swift in Sources */,
 				4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
