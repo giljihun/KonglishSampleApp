@@ -20,12 +20,14 @@
 		4CEE141C2E325DB000E8EAF2 /* Thonker.glb in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE141B2E325DB000E8EAF2 /* Thonker.glb */; };
 		4CEE141E2E32643800E8EAF2 /* ShootingARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE141D2E32643800E8EAF2 /* ShootingARContainer.swift */; };
 		4CEE14202E3272A200E8EAF2 /* CombinedTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE141F2E3272A200E8EAF2 /* CombinedTestView.swift */; };
-		4CEE14222E32759500E8EAF2 /* Barrel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14212E32759500E8EAF2 /* Barrel.usdz */; };
-		4CEE14242E327A6D00E8EAF2 /* kong.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14232E327A6D00E8EAF2 /* kong.usdz */; };
 		4CEE14262E328BC700E8EAF2 /* CombinedARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE14252E328BC700E8EAF2 /* CombinedARContainer.swift */; };
-		4CEE14282E328E4200E8EAF2 /* plane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14272E328E4200E8EAF2 /* plane.usdz */; };
 		4CEE142A2E328EE900E8EAF2 /* soccerball.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14292E328EE900E8EAF2 /* soccerball.usdz */; };
 		4CEE142C2E329CE500E8EAF2 /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE142B2E329CE500E8EAF2 /* GameCard.swift */; };
+		4CEE142E2E3632E200E8EAF2 /* PortalTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE142D2E3632E200E8EAF2 /* PortalTestView.swift */; };
+		4CEE14302E3632F400E8EAF2 /* PortalARContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE142F2E3632F400E8EAF2 /* PortalARContainer.swift */; };
+		4CEE143D2E3670A100E8EAF2 /* PortalWorld.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE143C2E3670A100E8EAF2 /* PortalWorld.usdz */; };
+		4CEE143E2E3670A100E8EAF2 /* Portal.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE143B2E3670A100E8EAF2 /* Portal.usdz */; };
+		4CEE14442E368A3600E8EAF2 /* skybox1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE14432E368A3600E8EAF2 /* skybox1.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,12 +45,14 @@
 		4CEE141B2E325DB000E8EAF2 /* Thonker.glb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thonker.glb; sourceTree = "<group>"; };
 		4CEE141D2E32643800E8EAF2 /* ShootingARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootingARContainer.swift; sourceTree = "<group>"; };
 		4CEE141F2E3272A200E8EAF2 /* CombinedTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedTestView.swift; sourceTree = "<group>"; };
-		4CEE14212E32759500E8EAF2 /* Barrel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Barrel.usdz; sourceTree = "<group>"; };
-		4CEE14232E327A6D00E8EAF2 /* kong.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = kong.usdz; sourceTree = "<group>"; };
 		4CEE14252E328BC700E8EAF2 /* CombinedARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedARContainer.swift; sourceTree = "<group>"; };
-		4CEE14272E328E4200E8EAF2 /* plane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = plane.usdz; sourceTree = "<group>"; };
 		4CEE14292E328EE900E8EAF2 /* soccerball.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = soccerball.usdz; sourceTree = "<group>"; };
 		4CEE142B2E329CE500E8EAF2 /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
+		4CEE142D2E3632E200E8EAF2 /* PortalTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalTestView.swift; sourceTree = "<group>"; };
+		4CEE142F2E3632F400E8EAF2 /* PortalARContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalARContainer.swift; sourceTree = "<group>"; };
+		4CEE143B2E3670A100E8EAF2 /* Portal.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Portal.usdz; sourceTree = "<group>"; };
+		4CEE143C2E3670A100E8EAF2 /* PortalWorld.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = PortalWorld.usdz; sourceTree = "<group>"; };
+		4CEE14432E368A3600E8EAF2 /* skybox1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = skybox1.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				4C6F7A2F2E23DBBE00369085 /* KonglishSampleApp */,
+				4CEE14392E366CA600E8EAF2 /* Frameworks */,
 				4C6F79ED2E23C80B00369085 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +97,7 @@
 				4CEE14252E328BC700E8EAF2 /* CombinedARContainer.swift */,
 				4CEE14172E325A4A00E8EAF2 /* IntegrationARContainer.swift */,
 				4CEE141D2E32643800E8EAF2 /* ShootingARContainer.swift */,
+				4CEE142F2E3632F400E8EAF2 /* PortalARContainer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -102,6 +108,7 @@
 				4CEE141F2E3272A200E8EAF2 /* CombinedTestView.swift */,
 				4CEE14192E325C9500E8EAF2 /* NewTestView.swift */,
 				4C6F7A4A2E27D06F00369085 /* IntegrationTestView.swift */,
+				4CEE142D2E3632E200E8EAF2 /* PortalTestView.swift */,
 				4C6F7A2A2E23DBBE00369085 /* Components */,
 			);
 			path = Views;
@@ -110,9 +117,9 @@
 		4C6F7A2F2E23DBBE00369085 /* KonglishSampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				4CEE14212E32759500E8EAF2 /* Barrel.usdz */,
-				4CEE14232E327A6D00E8EAF2 /* kong.usdz */,
-				4CEE14272E328E4200E8EAF2 /* plane.usdz */,
+				4CEE14432E368A3600E8EAF2 /* skybox1.usdz */,
+				4CEE143B2E3670A100E8EAF2 /* Portal.usdz */,
+				4CEE143C2E3670A100E8EAF2 /* PortalWorld.usdz */,
 				4CEE14292E328EE900E8EAF2 /* soccerball.usdz */,
 				4CEE141B2E325DB000E8EAF2 /* Thonker.glb */,
 				4CEE14052E31E65B00E8EAF2 /* Features */,
@@ -142,6 +149,13 @@
 				4CEE14062E31E65B00E8EAF2 /* CardEntity.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4CEE14392E366CA600E8EAF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,13 +219,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CEE14242E327A6D00E8EAF2 /* kong.usdz in Resources */,
 				4CEE141C2E325DB000E8EAF2 /* Thonker.glb in Resources */,
 				4C6F7A302E23DBBE00369085 /* Preview Assets.xcassets in Resources */,
 				4C6F7A312E23DBBE00369085 /* Assets.xcassets in Resources */,
-				4CEE14282E328E4200E8EAF2 /* plane.usdz in Resources */,
-				4CEE14222E32759500E8EAF2 /* Barrel.usdz in Resources */,
 				4CEE142A2E328EE900E8EAF2 /* soccerball.usdz in Resources */,
+				4CEE14442E368A3600E8EAF2 /* skybox1.usdz in Resources */,
+				4CEE143D2E3670A100E8EAF2 /* PortalWorld.usdz in Resources */,
+				4CEE143E2E3670A100E8EAF2 /* Portal.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,10 +241,12 @@
 				4CEE141A2E325C9500E8EAF2 /* NewTestView.swift in Sources */,
 				4CEE14182E325A4A00E8EAF2 /* IntegrationARContainer.swift in Sources */,
 				4CEE14262E328BC700E8EAF2 /* CombinedARContainer.swift in Sources */,
+				4CEE142E2E3632E200E8EAF2 /* PortalTestView.swift in Sources */,
 				4CEE14092E31E65B00E8EAF2 /* CardDetector.swift in Sources */,
 				4CEE140A2E31E65B00E8EAF2 /* CardEntity.swift in Sources */,
 				4CEE14202E3272A200E8EAF2 /* CombinedTestView.swift in Sources */,
 				4C6F7A4B2E27D06F00369085 /* IntegrationTestView.swift in Sources */,
+				4CEE14302E3632F400E8EAF2 /* PortalARContainer.swift in Sources */,
 				4C6F7A322E23DBBE00369085 /* ContentView.swift in Sources */,
 				4CEE141E2E32643800E8EAF2 /* ShootingARContainer.swift in Sources */,
 				4C6F7A332E23DBBE00369085 /* KonglishSampleAppApp.swift in Sources */,
@@ -370,6 +386,7 @@
 				DEVELOPMENT_TEAM = 5M5VM39FM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "AR 영어 학습을 위해 카메라가 필요합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "발음 학습을 위해 마이크가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -402,6 +419,7 @@
 				DEVELOPMENT_TEAM = 5M5VM39FM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "AR 영어 학습을 위해 카메라가 필요합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "발음 학습을 위해 마이크가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

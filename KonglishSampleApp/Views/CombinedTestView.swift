@@ -1,273 +1,195 @@
 import SwiftUI
+import RealityKit
 import ARKit
 
-/// 테스트1(탭-로테이션) + 슈팅테스트를 결합한 테스트3
 struct CombinedTestView: View {
-    @State private var detectedPlanes: [DetectedPlane] = []
-    @State private var placedCards: [PlacedCard] = []
-    @State private var isScanning = false
-    @State private var showingAlert = false
-    @State private var alertMessage = ""
-    @State private var targetAchieved = false
-    @State private var rightShooting = false
-    @State private var shotCount = 0
-    
-    // 목표 평면 수 (테스트용)
-    private let targetPlaneCount = 1
-    
     var body: some View {
         ZStack {
-            // 결합된 AR 뷰 컨테이너
-            CombinedARContainer(
-                detectedPlanes: $detectedPlanes,
-                placedCards: $placedCards,
-                isScanning: $isScanning
-            )
-            .ignoresSafeArea()
+            SimplePortalARView()
+                .edgesIgnoringSafeArea(.all)
             
-            // 상단 정보 표시
             VStack {
-                combinedStatusView()
+                HStack {}
                 
                 Spacer()
                 
-                // 하단 컨트롤
-                bottomControlsView()
-                    .padding(.bottom, 30)
-            }
-            
-            // 오른쪽 발사 버튼
-            HStack {
-                Spacer()
-                
-                VStack {
-                    Spacer()
-                    rightShootingButton()
-                    Spacer()
-                }
-                .padding(.trailing, 30)
-            }
-        }
-        .navigationTitle("결합 테스트")
-        .navigationBarTitleDisplayMode(.inline)
-        .alert("알림", isPresented: $showingAlert) {
-            Button("확인", role: .cancel) { }
-        } message: {
-            Text(alertMessage)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .targetReached)) { _ in
-            targetAchieved = true
-            print("🎉 UI: 목표 달성 알림 수신")
-        }
-    }
-    
-    /// 결합된 상태 표시
-    func combinedStatusView() -> some View {
-        VStack(spacing: 10) {
-            HStack {
-                Image(systemName: "gamecontroller.fill")
-                    .font(.title2)
-                    .foregroundStyle(.blue)
-                
-                Text("카드 배치 + 슈팅 결합 테스트")
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-                
-                Spacer()
-            }
-            
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("감지된 평면")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    
-                    Text("\(detectedPlanes.count)/\(targetPlaneCount)")
+                VStack(spacing: 16) {
+                    Text("Apple Portal 테스트")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(detectedPlanes.count >= targetPlaneCount ? .green : .blue)
-                }
-                
-                VStack(spacing: 4) {
-                    Text("배치된 카드")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(8)
                     
-                    Text("\(placedCards.count)개")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.orange)
+                    Text("벽을 터치하면 포털이 생성됩니다")
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(8)
                 }
-                
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text("발사한 구체")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    
-                    Text("\(shotCount)개")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.red)
-                }
+                .padding(.bottom, 50)
             }
+            .padding()
         }
-        .padding()
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
-        .padding(.horizontal)
-        .padding(.top, 20)
+        //.navigationBarHidden(true)
     }
-    
-    /// 하단 컨트롤
-    func bottomControlsView() -> some View {
-        VStack(spacing: 15) {
-            // 목표 달성 시 Scatter 버튼 표시
-            if targetAchieved || detectedPlanes.count >= targetPlaneCount {
-                completionView()
-            }
-            
-            // 컨트롤 버튼들
-            HStack(spacing: 20) {
-                Button {
-                    toggleScanning()
-                } label: {
-                    HStack {
-                        Image(systemName: isScanning ? "stop.circle.fill" : "play.circle.fill")
-                        Text(isScanning ? "스캔 중지" : "스캔 시작")
-                    }
-                    .font(.body)
-                    .foregroundStyle(isScanning ? .red : .green)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20))
-                }
-            }
-        }
-        .padding(.horizontal)
-    }
-    
-    /// 스캔 완료 뷰
-    func completionView() -> some View {
-        VStack(spacing: 15) {
-            HStack {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.title2)
-                    .foregroundStyle(.green)
-                
-                Text("평면 감지 완료! 카드 배치 후 슈팅 시작!")
-                    .font(.headline)
-                    .foregroundStyle(.green)
-            }
-            
-            Button {
-                scatterCards()
-            } label: {
-                HStack {
-                    Image(systemName: "sharedwithyou")
-                    Text("카드 배치!")
-                }
-                .font(.title2)
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(.blue, in: RoundedRectangle(cornerRadius: 12))
-            }
-        }
-        .frame(maxWidth: 600)
-        .padding()
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
-        .padding(.horizontal)
-    }
-    
-    /// 오른쪽 발사 버튼
-    func rightShootingButton() -> some View {
-        Button {
-            shootObject()
-        } label: {
-            ZStack {
-                Circle()
-                    .fill(.red.gradient)
-                    .frame(width: 80, height: 80)
-                    .scaleEffect(rightShooting ? 1.2 : 1.0)
-                    .shadow(color: .red.opacity(0.3), radius: rightShooting ? 20 : 8)
-                
-                Image(systemName: "target")
-                    .font(.title)
-                    .foregroundStyle(.white)
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
-        .animation(.easeInOut(duration: 0.1), value: rightShooting)
-    }
-    
-    // MARK: - 액션 메서드들
-    
-    private func toggleScanning() {
-        isScanning.toggle()
+}
+
+struct SimplePortalARView: UIViewRepresentable {
+    func makeUIView(context: Context) -> ARView {
+        let arView = ARView(frame: .zero)
         
-        if isScanning {
-            startScanning()
+        // AR 세션 설정
+        let config = ARWorldTrackingConfiguration()
+        config.planeDetection = [.vertical]
+        config.environmentTexturing = .automatic
+        
+        // 기기 호환성을 고려한 씬 언더스탠딩 설정
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+            config.sceneReconstruction = .meshWithClassification
+            config.frameSemantics = .sceneDepth
+            print("✅ LiDAR 기기: 완전한 가려짐 지원")
+        } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+            config.frameSemantics = .personSegmentationWithDepth
+            print("⚡ 비-LiDAR 기기: 사람 가려짐만 지원")
         } else {
-            stopScanning()
-        }
-    }
-    
-    private func startScanning() {
-        NotificationCenter.default.post(name: .startPlaneDetection, object: nil)
-        print("🎯 평면 감지 시작")
-    }
-    
-    private func stopScanning() {
-        NotificationCenter.default.post(name: .stopPlaneDetection, object: nil)
-        detectedPlanes = []
-        print("🛑 평면 감지 중지")
-    }
-    
-    private func scatterCards() {
-        guard detectedPlanes.count >= targetPlaneCount else {
-            alertMessage = "아직 충분한 평면이 감지되지 않았습니다."
-            showingAlert = true
-            return
+            print("❌ 구형 기기: 가려짐 기능 불가능")
         }
         
-        NotificationCenter.default.post(name: .scatterCards, object: nil)
-        print("🎯 카드 배치 시작")
+        arView.session.run(config)
+        
+        // sceneUnderstanding 옵션 활성화
+        arView.environment.sceneUnderstanding.options.insert(.occlusion)
+        
+        // 터치 제스처 추가
+        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
+        arView.addGestureRecognizer(tapGesture)
+        
+        context.coordinator.arView = arView
+        
+        return arView
     }
     
-    /// 구체 발사
-    private func shootObject() {
-        // 발사 애니메이션 효과
-        withAnimation(.easeInOut(duration: 0.1)) {
-            rightShooting = true
+    func updateUIView(_ uiView: ARView, context: Context) {
+        // 업데이트 로직
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
+    class Coordinator: NSObject {
+        var arView: ARView?
+        private var portalWorldScene: Entity?
+        
+        override init() {
+            super.init()
+            loadPortalAssets()
         }
         
-        // 애니메이션 리셋
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation(.easeInOut(duration: 0.1)) {
-                rightShooting = false
+        private func loadPortalAssets() {
+            Task {
+                do {
+                    // PortalWorld.usdz만 로드
+                    if let portalWorldURL = Bundle.main.url(forResource: "skybox1", withExtension: "usdz") {
+                        portalWorldScene = try await Entity.init(contentsOf: portalWorldURL)
+                        print("✅ PortalWorld.usdz 로드 성공!")
+                    } else {
+                        print("❌ PortalWorld.usdz 파일을 찾을 수 없습니다.")
+                    }
+                } catch {
+                    print("❌ PortalWorld.usdz 로드 실패: \(error)")
+                }
             }
         }
         
-        // 발사 카운트 증가
-        shotCount += 1
+        @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+            guard let arView = arView else { return }
+            
+            let location = gesture.location(in: arView)
+            let results = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .vertical)
+            
+            guard let firstResult = results.first else {
+                print("❌ 수직 평면을 찾을 수 없습니다")
+                return
+            }
+            
+            print("✅ 수직 평면 발견 - 포털 생성!")
+            createPortal(at: firstResult, in: arView)
+        }
         
-        print("🚀 카드를 향해 구체 발사! (총 \(shotCount)개)")
-        
-        // 발사 Notification 전송
-        NotificationCenter.default.post(
-            name: .shootObjectAtCards, 
-            object: nil
-        )
+        // PortalWorld.usdz를 사용한 포털 생성
+        private func createPortal(at result: ARRaycastResult, in arView: ARView) {
+            // PortalWorld.usdz가 로드되지 않았으면 포털 생성 안함
+            guard let portalWorldScene = portalWorldScene?.clone(recursive: true) else {
+                print("❌ PortalWorld.usdz가 로드되지 않아 포털을 생성할 수 없습니다")
+                return
+            }
+            
+            // 1. World 생성
+            let world = Entity()
+            world.components.set(WorldComponent())
+            
+            // PortalWorld.usdz 콘텐츠 조정
+            //portalWorldScene.transform.scale = [0.5, 0.5, 0.5]
+            portalWorldScene.transform.translation.y = 0.0
+            portalWorldScene.transform.translation.z = -2.0
+            portalWorldScene.transform.rotation = simd_quatf(angle: .pi/2, axis: [-1, 0, 0])  // 90도 위로 - 완전히 위쪽 보기
+            
+            world.addChild(portalWorldScene)
+            
+            // 2. Portal 생성 - 원형으로
+            let portalMesh = MeshResource.generatePlane(width: 0.8, depth: 0.8, cornerRadius: 0.4)  // 원형 모양
+            let portal = ModelEntity(mesh: portalMesh, materials: [PortalMaterial()])
+            portal.components.set(PortalComponent(target: world))
+            
+            
+            // 3. 동화 같은 반짝이 파티클 ✨
+            let sparkleEntity = Entity()
+            var sparkleEmitter = ParticleEmitterComponent()
+            
+            // 가벼운 반짝이 파티클 설정
+            sparkleEmitter.mainEmitter.birthRate = 15                  // 초당 15개 (가볍게)
+            sparkleEmitter.mainEmitter.lifeSpan = 1.5                  // 1.5초 (금방 사라지게)
+            sparkleEmitter.mainEmitter.size = 0.008                    // 작은 크기
+            
+            // 동화 같은 파스텔 색상
+            sparkleEmitter.mainEmitter.color = .evolving(
+                start: .single(UIColor(red: 1.0, green: 0.9, blue: 0.6, alpha: 0.8)),  // 연한 골드
+                end: .single(UIColor(red: 1.0, green: 0.7, blue: 0.9, alpha: 0.0))     // 연한 핑크로 사라짐
+            )
+            
+            // 포털 주변에서 살짝 퍼져나가게
+            sparkleEmitter.emitterShape = .sphere
+            sparkleEmitter.emitterShapeSize = [0.3, 0.3, 0.1]          // 포털 중심 작은 영역
+            
+            // 위로 살짝 떠오르는 느낌
+            sparkleEmitter.emissionDirection = [0, 0.5, 0]
+            sparkleEmitter.speed = 0.1
+            sparkleEmitter.speedVariation = 0.05           // 작은 속도 변화
+            sparkleEmitter.mainEmitter.spreadingAngle = .pi * 0.4      // 넓게 퍼짐
+            
+            sparkleEntity.components.set(sparkleEmitter)
+            sparkleEntity.transform.translation = [0, 0, 0.03]         // 포털 바로 앞
+            
+            // 4. 앵커에 추가
+            let anchor = AnchorEntity(world: result.worldTransform)
+            
+            // portal.transform.rotation = simd_quatf(angle: .pi/2, axis: [1, 0, 0])
+            portal.transform.translation.z = 0.05
+            
+            anchor.addChild(world)
+            anchor.addChild(portal)
+            anchor.addChild(sparkleEntity)   // 동화 반짝이 파티클 ✨
+            arView.scene.addAnchor(anchor)
+            
+            print("🌀 포털 생성 완료!")
+        }
     }
 }
 
-// Notification extensions
-extension Notification.Name {
-    static let shootObjectAtCards = Notification.Name("shootObjectAtCards")
-}
-
-#Preview(traits: .landscapeLeft) {
-    NavigationStack {
-        CombinedTestView()
-    }
+#Preview {
+    CombinedTestView()
 }

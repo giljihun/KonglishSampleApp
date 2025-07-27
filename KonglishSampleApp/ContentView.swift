@@ -22,8 +22,8 @@ struct ContentView: View {
                     )
                     
                     taskNavigationLink(
-                        title: "새로운 테스트",
-                        subtitle: "새로운 기능 테스트를 위한 전용 뷰",
+                        title: "포탈 테스트",
+                        subtitle: "포탈",
                         icon: "sparkles",
                         destination: NewTestView()
                     )
@@ -33,6 +33,13 @@ struct ContentView: View {
                         subtitle: "카드 배치 + 슈팅 기능을 결합한 테스트",
                         icon: "gamecontroller.fill",
                         destination: CombinedTestView()
+                    )
+                    
+                    taskNavigationLink(
+                        title: "포털 테스트",
+                        subtitle: "Reality Composer Pro 포털 + 파티클 시스템",
+                        icon: "circle.hexagongrid.fill",
+                        destination: PortalTestView()
                     )
                     
                 }

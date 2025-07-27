@@ -42,7 +42,7 @@ struct CombinedARContainer: UIViewRepresentable {
         
         arView.session.run(config)
         arView.debugOptions = []
-        
+
         // Coordinator 연결
         context.coordinator.arView = arView
         context.coordinator.setupCardFeatures(arView: arView)
@@ -104,7 +104,6 @@ struct CombinedARContainer: UIViewRepresentable {
                 (.startPlaneDetection, #selector(handleStartPlaneDetection)),
                 (.stopPlaneDetection, #selector(handleStopPlaneDetection)),
                 (.scatterCards, #selector(handleScatterCards)),
-                (.shootObjectAtCards, #selector(handleShootObjectAtCards))
             ]
             
             notifications.forEach { name, selector in
@@ -124,7 +123,7 @@ struct CombinedARContainer: UIViewRepresentable {
             guard let arView = arView else { return }
             
             arView.scene.subscribe(to: CollisionEvents.Began.self) { event in
-                print("💥 충돌 발생! \(event.entityA.name ?? "unknown") vs \(event.entityB.name ?? "unknown")")
+                print("💥 충돌 발생! \(event.entityA.name) vs \(event.entityB.name)")
                 
                 // soccerball과 card 충돌 시 회전
                 if (event.entityA.name == "soccerball" && event.entityB.name == "card") ||
@@ -155,7 +154,7 @@ struct CombinedARContainer: UIViewRepresentable {
         }
         
         private func stopPlaneDetectionCompletely() {
-            print("🎉 5개 달성! 평면 감지 완전 중지")
+            print("🎉 1개 달성! 평면 감지 완전 중지 (테스트 모드)")
             isDetectionActive = false
             isScanning = false
             
@@ -198,7 +197,8 @@ struct CombinedARContainer: UIViewRepresentable {
             for anchor in anchors {
                 if let planeAnchor = anchor as? ARPlaneAnchor, planeAnchor.alignment == .vertical {
                     DispatchQueue.main.async {
-                        guard self.detectedPlanes.count < 5,
+                        // 🧪 테스트용: 1개만 감지하도록 제한
+                        guard self.detectedPlanes.count < 1,
                               self.isValidPlaneSize(planeAnchor),
                               !self.isDuplicatePlane(planeAnchor) else { return }
                         
@@ -211,7 +211,8 @@ struct CombinedARContainer: UIViewRepresentable {
                         self.detectedPlanes.append(detectedPlane)
                         self.addPlaneVisualization(for: planeAnchor)
                         
-                        if self.detectedPlanes.count == 5 {
+                        // 🧪 테스트용: 1개 달성시 즉시 중지
+                        if self.detectedPlanes.count == 1 {
                             self.stopPlaneDetectionCompletely()
                         }
                     }
@@ -265,33 +266,239 @@ struct CombinedARContainer: UIViewRepresentable {
             return false
         }
         
-        // MARK: - 평면 시각화
+        // MARK: - 포털 시각화 (기존 평면 시각화 대체)
         
         private func addPlaneVisualization(for planeAnchor: ARPlaneAnchor) {
             guard let arView = arView else { return }
             
             let anchorEntity = AnchorEntity(anchor: planeAnchor)
-            let width = planeAnchor.planeExtent.width * 0.95
-            let height = planeAnchor.planeExtent.height * 0.95
-            let planeMesh = MeshResource.generatePlane(width: width, depth: height)
+            let width = planeAnchor.planeExtent.width * 0.6
+            let height = planeAnchor.planeExtent.height * 0.6
             
-            let material = SimpleMaterial(color: .systemBlue.withAlphaComponent(0.3), isMetallic: false)
-            let planeEntity = ModelEntity(mesh: planeMesh, materials: [material])
+            // 포털 생성
+            let portalEntity = createPortalEntity(width: width, height: height)
+            portalEntity.transform.translation.y = 0.01
+            portalEntity.name = "portal_\(planeAnchor.identifier)"
             
-            planeEntity.transform.translation.y = 0.005
-            planeEntity.transform.scale = [0.2, 0.2, 0.2]
-            anchorEntity.addChild(planeEntity)
-            
+            anchorEntity.addChild(portalEntity)
             planeEntities[planeAnchor.identifier] = anchorEntity
             planeAnchors[planeAnchor.identifier] = planeAnchor
             arView.scene.addAnchor(anchorEntity)
             
-            // 등장 애니메이션
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                var transform = planeEntity.transform
-                transform.scale = [1.0, 1.0, 1.0]
-                planeEntity.move(to: transform, relativeTo: anchorEntity, duration: 0.5, timingFunction: .easeOut)
+            // 포털 열리는 애니메이션
+            animatePortalOpening(portalEntity)
+            
+            print("🌀 포털이 열렸습니다!")
+        }
+        
+        // 디버깅용: 기본 평면 시각화
+        private func createPortalEntity(width: Float, height: Float) -> Entity {
+            let container = Entity()
+            
+            // 일단 포털 말고 기본 평면부터 확인
+            let planeMesh = MeshResource.generatePlane(width: 0.5, height: 0.5)
+            let planeMaterial = SimpleMaterial(color: .blue, isMetallic: false)
+            let planeEntity = ModelEntity(mesh: planeMesh, materials: [planeMaterial])
+            
+            // 평면을 수직으로 세우기
+            planeEntity.transform.rotation = simd_quatf(angle: .pi/2, axis: [1, 0, 0])
+            planeEntity.transform.translation.z = 0.05
+            
+            container.addChild(planeEntity)
+            
+            print("🔵 기본 파란 평면 생성 완료 - 포털 대신 테스트")
+            return container
+        }
+        
+        // 간단한 테스트 월드 생성
+        func makeSimpleTestWorld() -> Entity {
+            let world = Entity()
+            world.components.set(WorldComponent())
+            
+            // 1. 강한 조명 추가
+            let lightEntity = Entity()
+            let directionalLight = DirectionalLightComponent(
+                color: .white,
+                intensity: 3000,
+                isRealWorldProxy: false
+            )
+            lightEntity.components.set(directionalLight)
+            lightEntity.look(at: [0, 0, -1], from: [0, 1, 0], relativeTo: nil)
+            world.addChild(lightEntity)
+            
+            // 2. 밝은 배경
+            let skyMesh = MeshResource.generateSphere(radius: 5.0)
+            let skyMaterial = UnlitMaterial(color: UIColor.cyan)  // 밝은 하늘색
+            let skyEntity = ModelEntity(mesh: skyMesh, materials: [skyMaterial])
+            skyEntity.scale = [-1, 1, 1]  // 내부가 보이도록
+            world.addChild(skyEntity)
+            
+            // 3. 포털 바로 앞에 작은 빨간 박스 
+            let testMesh = MeshResource.generateBox(size: 0.2)  // 20cm 박스
+            let testMaterial = UnlitMaterial(color: .red)  // 자체 발광
+            let testEntity = ModelEntity(mesh: testMesh, materials: [testMaterial])
+            
+            // 포털 바로 앞에 위치
+            testEntity.transform.translation = simd_float3(0, 0, -0.3)  // 30cm 앞
+            
+            world.addChild(testEntity)
+            
+            print("🟥 밝은 테스트 월드 생성 완료 - 빨간박스, 하늘색 배경, 강한 조명")
+            return world
+        }
+        
+        // WWDC23 공식: World 생성 (동화같은 세상 추가)
+        func makeWorld() -> Entity {
+            let world = Entity()
+            world.components.set(WorldComponent())
+            
+            // 🌈 동화같은 배경 추가
+            addFairyTaleBackground(to: world)
+            
+            print("🌍 동화같은 포털 월드 생성 완료")
+            return world
+        }
+        
+        /// 포털 내부에 동화같은 배경 추가 (밝은 조명 개선)
+        private func addFairyTaleBackground(to world: Entity) {
+            // 🔆 1. 강력한 환경 조명 추가
+            let lightEntity = Entity()
+            let directionalLight = DirectionalLightComponent(
+                color: .white,
+                intensity: 5000,  // 매우 밝게
+                isRealWorldProxy: false
+            )
+            lightEntity.components.set(directionalLight)
+            lightEntity.look(at: [0, 0, -1], from: [0, 1, 0], relativeTo: nil)
+            world.addChild(lightEntity)
+            
+            // 🌈 2. 매우 밝은 배경 (큰 구체로 감싸기)
+            let skyMesh = MeshResource.generateSphere(radius: 8.0)
+            let skyMaterial = UnlitMaterial(color: UIColor(red: 1.0, green: 1.0, blue: 0.9, alpha: 1.0))  // 매우 밝은 크림색
+            let skyEntity = ModelEntity(mesh: skyMesh, materials: [skyMaterial])
+            skyEntity.scale = [-1, 1, 1]  // 내부가 보이도록 뒤집기
+            world.addChild(skyEntity)
+            
+            // ✨ 3. 밝게 빛나는 별들 (자체 발광, 더 크게)
+            for i in 0..<12 {
+                let starMesh = MeshResource.generateSphere(radius: 0.05)
+                let starColors: [UIColor] = [
+                    UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0),   // 순수 노랑
+                    UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0),   // 시안
+                    UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0),   // 마젠타
+                    UIColor(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0)    // 주황
+                ]
+                let starMaterial = UnlitMaterial(color: starColors[i % starColors.count])
+                let starEntity = ModelEntity(mesh: starMesh, materials: [starMaterial])
+                
+                // 별을 더 넓게 배치
+                let x = Float.random(in: -2.0...2.0)
+                let y = Float.random(in: -2.0...2.0)
+                let z = Float.random(in: -4.0 ... -1.0)
+                starEntity.transform.translation = simd_float3(x, y, z)
+                
+                world.addChild(starEntity)
             }
+            
+            // 🌸 4. 더 많은 밝은 꽃들
+            for i in 0..<10 {
+                let flowerMesh = MeshResource.generateSphere(radius: 0.06)
+                let flowerColors: [UIColor] = [
+                    UIColor(red: 1.0, green: 0.4, blue: 0.8, alpha: 1.0),   // 밝은 핑크
+                    UIColor(red: 0.6, green: 0.4, blue: 1.0, alpha: 1.0),   // 밝은 보라
+                    UIColor(red: 0.4, green: 0.8, blue: 1.0, alpha: 1.0),   // 밝은 하늘색
+                    UIColor(red: 1.0, green: 0.8, blue: 0.4, alpha: 1.0)    // 밝은 노랑
+                ]
+                let flowerMaterial = UnlitMaterial(color: flowerColors[i % flowerColors.count])
+                let flowerEntity = ModelEntity(mesh: flowerMesh, materials: [flowerMaterial])
+                
+                // 꽃을 원형으로 여러 층에 배치
+                let angle = Float(i) * 2 * .pi / 10
+                let radius: Float = 1.2 + Float(i % 3) * 0.3  // 3개 층으로
+                let x = cos(angle) * radius
+                let y = sin(angle) * radius
+                flowerEntity.transform.translation = simd_float3(x, y, -2.0)
+                
+                world.addChild(flowerEntity)
+            }
+            
+            print("🌈✨🌸 매우 밝은 동화 배경을 포털에 추가했습니다!")
+        }
+        
+        // WWDC23 공식: Portal 생성 (방향 수정)
+        func makePortal(world: Entity, size: Float) -> Entity {
+            let portal = Entity()
+            
+            // 포털 메시 생성 (원형 포털)
+            let portalMesh = MeshResource.generatePlane(width: size, height: size, cornerRadius: size/2)
+            let portalMaterial = PortalMaterial()
+            
+            portal.components.set(
+                ModelComponent(mesh: portalMesh, materials: [portalMaterial])
+            )
+            
+            // 포털 컴포넌트 설정 - 올바른 방향으로
+            portal.components.set(PortalComponent(target: world,
+                                                  clippingMode: .plane(.positiveZ),
+                                                  crossingMode: .plane(.positiveZ)))
+            
+            // 🔧 핵심 수정: 포털이 올바른 방향을 보도록 회전
+            // RealityKit 포털은 기본적으로 아래를 향하므로 90도 회전 필요
+            portal.transform.rotation = simd_quatf(angle: .pi/2, axis: [1, 0, 0])  // X축 기준 90도 회전
+            
+            // 포털에 이름 부여 (디버깅용)
+            portal.name = "portal_plane"
+            
+            print("🌀 포털 방향 수정 완료 - 90도 회전으로 올바른 방향 설정")
+            return portal
+        }
+        
+        // 포털에서 나오는 파티클 효과 ✨
+        private func createPortalRingParticles(size: Float) -> Entity {
+            let particleEntity = Entity()
+            
+            // RealityKit 파티클 이미터 생성
+            var particleEmitter = ParticleEmitterComponent()
+            
+            // 파티클 기본 설정 (포털에서 밖으로 나오는 효과)
+            particleEmitter.mainEmitter.birthRate = 150            // 적당한 생성률
+            particleEmitter.mainEmitter.lifeSpan = 2.0            // 2초 수명
+            particleEmitter.mainEmitter.size = 0.01             // 작은 파티클
+            
+            // 파티클 색상 (푸른빛 → 투명)
+            particleEmitter.mainEmitter.color = .evolving(start: .single(.blue),
+                                                          end: .single(.yellow))
+            
+            // 포털 중심에서 밖으로 방출
+            particleEmitter.emitterShape = .torus
+            particleEmitter.emitterShapeSize = [size * 0.1, size * 0.1, 0.1]  // 포털 중심 작은 영역
+            
+            // 파티클이 밖으로 퍼져나가는 효과
+            particleEmitter.mainEmitter.spreadingAngle = .pi * 0.3  // 넓게 퍼짐
+            
+            particleEntity.components.set(particleEmitter)
+            particleEntity.position.z = 0  // 포털 중심에
+            particleEntity.name = "portal_emission_particles"
+            
+            print("✨ 포털 방출 파티클 생성!")
+            return particleEntity
+        }
+        
+        
+        private func animatePortalOpening(_ portalEntity: Entity) {
+            // 처음엔 작게 시작
+            portalEntity.transform.scale = [0.1, 0.1, 0.1]
+            
+            // 포털이 열리는 애니메이션
+            var transform = portalEntity.transform
+            transform.scale = [1.0, 1.0, 1.0]
+            
+            portalEntity.move(
+                to: transform,
+                relativeTo: portalEntity.parent,
+                duration: 1.5,
+                timingFunction: .easeOut
+            )
         }
         
         private func updatePlaneVisualization(for planeAnchor: ARPlaneAnchor, anchorEntity: AnchorEntity) {
@@ -327,19 +534,87 @@ struct CombinedARContainer: UIViewRepresentable {
             let cardEntity = createCard()
             let offset = detectedPlane.normal * CardConstants.offsetDistance
             
-            cardEntity.transform.translation = simd_float3(0, 0, 0) + offset
-            cardEntity.transform.rotation = calculateCardRotation(normal: detectedPlane.normal)
-            cardEntity.updateMaterial()
+            // 포털에서 카드가 나오는 애니메이션 시작
+            animateCardFromPortal(cardEntity, anchorEntity: anchorEntity, finalOffset: offset, normal: detectedPlane.normal)
             
-            // 회전 후 물리 설정 새로고침
-            cardEntity.refreshPhysicsAfterPlacement()
-            
-            anchorEntity.addChild(cardEntity)
             cardEntities[UUID()] = cardEntity
             
             DispatchQueue.main.async {
                 let placedCard = PlacedCard(position: detectedPlane.position, planeId: detectedPlane.id)
                 self.placedCards.append(placedCard)
+            }
+            
+            // 카드 생성 완료 후 포털 천천히 닫기 (2.5초 후 시작)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.animatePortalClosing(anchorEntity)
+            }
+        }
+        
+        // 📚 간단한 포털 카드 애니메이션 (동화같은 느낌)
+        private func animateCardFromPortal(_ cardEntity: CardEntity, anchorEntity: AnchorEntity, finalOffset: simd_float3, normal: simd_float3) {
+            // 포털 월드에 카드 추가하여 내부에서 생성
+            if let portalContainer = anchorEntity.children.first,
+               let portalWorld = portalContainer.children.first(where: { $0.components[WorldComponent.self] != nil }) {
+                
+                let finalRotation = calculateCardRotation(normal: normal)
+                
+                // 1. 포털 중심에서 작게 시작
+                cardEntity.transform.translation = simd_float3(0, 0, -1.0)  // 포털 중심
+                cardEntity.transform.rotation = finalRotation
+                cardEntity.transform.scale = [0.1, 0.1, 0.1]  // 작게 시작
+                
+                portalWorld.addChild(cardEntity)
+                print("📚 카드가 포털 내부에서 생성됩니다!")
+                
+                // 2. 포털 내부에서 커지는 애니메이션 (2초)
+                var growTransform = cardEntity.transform
+                growTransform.scale = [1.0, 1.0, 1.0]  // 완전한 크기로
+                growTransform.translation = simd_float3(0, 0, -0.1)  // 포털 면 근처
+                
+                cardEntity.move(to: growTransform, relativeTo: portalWorld, duration: 2.0, timingFunction: .easeOut)
+                print("✨ 카드가 포털 내부에서 천천히 커집니다!")
+                
+                // 3. 카드 완성 후 최종 위치 설정 및 물리 활성화
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    // 포털 월드에서 앵커로 이동 (부모 변경)
+                    cardEntity.removeFromParent()
+                    
+                    // 최종 위치 설정
+                    cardEntity.transform.translation = simd_float3(0, 0, 0) + finalOffset
+                    cardEntity.transform.rotation = finalRotation
+                    cardEntity.transform.scale = [1.0, 1.0, 1.0]
+                    
+                    anchorEntity.addChild(cardEntity)
+                    
+                    // 물리 시스템 활성화
+                    cardEntity.refreshPhysicsAfterPlacement()
+                    cardEntity.updateMaterial()
+                    
+                    print("🎉 카드가 완성되어 배치되었습니다!")
+                }
+            }
+        }
+        
+        private func animatePortalClosing(_ anchorEntity: AnchorEntity) {
+            guard let portalContainer = anchorEntity.children.first else { return }
+            
+            print("🌀 포털이 닫히기 시작...")
+            
+            // 포털이 줄어들면서 닫히는 애니메이션
+            var closeTransform = portalContainer.transform
+            closeTransform.scale = [0.01, 0.01, 0.01]
+            
+            portalContainer.move(
+                to: closeTransform,
+                relativeTo: anchorEntity,
+                duration: 1.5,
+                timingFunction: .easeIn
+            )
+            
+            // 완전히 사라지는 효과
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                portalContainer.removeFromParent()
+                print("💫 포털이 완전히 닫혔습니다!")
             }
         }
         

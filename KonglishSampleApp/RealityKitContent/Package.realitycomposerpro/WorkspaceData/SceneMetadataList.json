@@ -1,0 +1,64 @@
+{
+  "4A3B1EFD-C9FF-46EE-8C8C-1149CFE9AE60" : {
+    "objectMetadataList" : [
+      [
+        "4A3B1EFD-C9FF-46EE-8C8C-1149CFE9AE60",
+        "Root",
+        "Sphere"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4A3B1EFD-C9FF-46EE-8C8C-1149CFE9AE60",
+        "Root",
+        "SkyDome"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4A3B1EFD-C9FF-46EE-8C8C-1149CFE9AE60",
+        "Root",
+        "SkyDome",
+        "Looks"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4A3B1EFD-C9FF-46EE-8C8C-1149CFE9AE60",
+        "ParticleEmitter"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "816DF685-5F67-4F28-AA37-9004CB02A265" : {
+    "objectMetadataList" : [
+      [
+        "816DF685-5F67-4F28-AA37-9004CB02A265",
+        "Root",
+        "Sphere"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "816DF685-5F67-4F28-AA37-9004CB02A265",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  }
+}
